@@ -87,7 +87,7 @@ Before running the code, you must download the required datasets and pre-trained
 2.  **Pre-trained Models:** You will need the **Clinical-T5-Base** language model. Download the model files from a trusted source like Hugging Face.
 3.  **Configuration:** Open the `config.py` file and update the following path variables to point to your local data and model directories:
       * `LLM_MODEL_NAME`: Path to the downloaded Clinical-T5 model directory.
-      * `CSV_PATH`: Path to the CSV file containing labels and study IDs (e.g., `pneumonia_subset_1500.csv`).
+      * `CSV_PATH`: Path to the CSV file containing labels and study IDs (e.g., `pneumonia_subset_10000.csv`).
       * `IMAGE_BASE_DIR`: Path to the root directory containing the chest X-ray images.
       * `REPORT_BASE_DIR`: Path to the root directory containing the corresponding radiology reports.
 
