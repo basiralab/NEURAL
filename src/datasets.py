@@ -1,5 +1,3 @@
-# datasets.py
-
 import os
 import io
 import glob
@@ -15,8 +13,6 @@ from torchvision import transforms
 
 import config
 import utils
-
-# --- Stage 1 Dataset & Collator ---
 
 class Stage1Dataset(Dataset):
     def __init__(self, df, transform):
@@ -37,38 +33,6 @@ class Stage1Collator:
         labels = self.tokenizer(texts, padding='longest', truncation=True, max_length=config.MAX_TEXT_LENGTH, return_tensors='pt').input_ids
         pneumonia_labels = torch.tensor([item['pneumonia_label'] for item in batch], dtype=torch.long)
         return {'images': images, 'labels': labels, 'pneumonia_labels': pneumonia_labels}
-
-def load_data_stage1():
-    logging.info(f"[Stage 1] Loading data with JPEG quality={config.STAGE1_JPEG_QUALITY}...")
-    try:
-        df = pd.read_csv(config.CSV_PATH).head(config.STAGE1_NUM_SAMPLES)
-    except FileNotFoundError:
-        logging.error(f"FATAL: CSV file not found at {config.CSV_PATH}."); return pd.DataFrame()
-
-    all_reports = {os.path.basename(p): p for p in glob.glob(os.path.join(config.REPORT_BASE_DIR, '**', '*.txt'), recursive=True)}
-    all_images = glob.glob(os.path.join(config.IMAGE_BASE_DIR, '**', '*.jpg'), recursive=True)
-    
-    processed_data = []
-    for _, row in tqdm(df.iterrows(), total=len(df), desc="[Stage 1] Reading & Compressing"):
-        try:
-            study_id = str(int(row['study_id']))
-            report_path = all_reports.get(f"s{study_id}.txt")
-            image_path = next((p for p in all_images if f'/s{study_id}/' in p), None)
-            if report_path and image_path:
-                with open(image_path, 'rb') as f: original_bytes = f.read()
-                img = Image.open(io.BytesIO(original_bytes))
-                buffer = io.BytesIO()
-                img.convert('RGB').save(buffer, format="JPEG", quality=config.STAGE1_JPEG_QUALITY)
-                with open(report_path, 'r', encoding='utf-8') as f: text_content = f.read()
-                impression = utils.extract_impression(text_content)
-                if impression:
-                    processed_data.append({'image_bytes': buffer.getvalue(), 'text': impression, 'Pneumonia': int(row['Pneumonia'])})
-        except Exception as e:
-            logging.warning(f"Skipping study {row.get('study_id', 'N/A')} due to error: {e}")
-    return pd.DataFrame(processed_data)
-
-
-# --- Stage 2 Dataset & Data Loading ---
 
 class FusedGraphDataset(PyGDataset):
     def __init__(self, root, df, attention_model, tokenizer, nlp_model):
@@ -114,7 +78,8 @@ class FusedGraphDataset(PyGDataset):
                 cross_attention = cross_attentions[-1] # Use last layer's cross-attention
                 agg_attention = cross_attention.mean(dim=(0, 1)).squeeze().cpu().numpy()
                 
-                if agg_attention.size == 0 or agg_attention.ndim == 0: continue
+                if agg_attention.size == 0 or agg_attention.ndim == 0: 
+                    continue
                 
                 threshold = np.percentile(agg_attention, 100 - config.STAGE2_PRUNING_PERCENTILE)
                 pruned_indices = np.where(agg_attention > threshold)[0]
@@ -149,8 +114,42 @@ class FusedGraphDataset(PyGDataset):
             except Exception as e:
                 logging.warning(f"Skipping data point at index {index} due to error: {e}")
         
-        if not data_list: raise RuntimeError("No data could be processed.")
+        if not data_list: 
+            raise RuntimeError("No data could be processed.")
         torch.save(data_list, self.processed_paths[0])
+
+
+def load_data_stage1():
+    logging.info(f"[Stage 1] Loading data...")
+    try:
+        df = pd.read_csv(config.CSV_PATH).head(config.STAGE1_NUM_SAMPLES)
+    except FileNotFoundError:
+        logging.error(f"FATAL: CSV file not found at {config.CSV_PATH}."); return pd.DataFrame()
+
+    all_reports = {os.path.basename(p): p for p in glob.glob(os.path.join(config.REPORT_BASE_DIR, '**', '*.txt'), recursive=True)}
+    all_images = glob.glob(os.path.join(config.IMAGE_BASE_DIR, '**', '*.jpg'), recursive=True)
+    
+    processed_data = []
+    for _, row in tqdm(df.iterrows(), total=len(df), desc="[Stage 1] Reading"):
+        try:
+            study_id = str(int(row['study_id']))
+            report_path = all_reports.get(f"s{study_id}.txt")
+            image_path = next((p for p in all_images if f'/s{study_id}/' in p), None)
+            if report_path and image_path:
+                with open(image_path, 'rb') as f: 
+                    original_bytes = f.read()
+                img = Image.open(io.BytesIO(original_bytes))
+                buffer = io.BytesIO()
+                img.convert('RGB').save(buffer, format="JPEG", quality=config.STAGE1_JPEG_QUALITY)
+                with open(report_path, 'r', encoding='utf-8') as f: 
+                    text_content = f.read()
+                impression = utils.extract_impression(text_content)
+                if impression:
+                    processed_data.append({'image_bytes': buffer.getvalue(), 'text': impression, 'Pneumonia': int(row['Pneumonia'])})
+        except Exception as e:
+            logging.warning(f"Skipping study {row.get('study_id', 'N/A')} due to error: {e}")
+    return pd.DataFrame(processed_data)
+
 
 def load_data_stage2():
     logging.info("[Stage 2] Loading raw data (no compression)...")
@@ -169,8 +168,10 @@ def load_data_stage2():
             report_path = all_reports.get(f"s{study_id}.txt")
             image_path = next((p for p in all_images if f'/s{study_id}/' in p), None)
             if report_path and image_path:
-                with open(image_path, 'rb') as f: image_bytes = f.read()
-                with open(report_path, 'r', encoding='utf-8') as f: text_content = f.read()
+                with open(image_path, 'rb') as f: 
+                    image_bytes = f.read()
+                with open(report_path, 'r', encoding='utf-8') as f: 
+                    text_content = f.read()
                 impression = utils.extract_impression(text_content)
                 if impression:
                     processed_data.append({'image_bytes': image_bytes, 'text': impression, 'Pneumonia': int(row['Pneumonia'])})

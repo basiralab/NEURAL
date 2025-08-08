@@ -1,5 +1,3 @@
-# stage1_train.py
-
 import logging
 import torch
 import torch.optim as optim

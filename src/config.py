@@ -26,7 +26,7 @@ STAGE1_LR_LM = 2e-5
 STAGE1_LR_VISION = 2e-6
 STAGE1_JPEG_QUALITY = 10
 
-# --- Stage 2 (NEURAL) Configuration ---
+# --- Stage 2 (Downstream) Configuration ---
 STAGE2_CHECKPOINT_PATH = 'stage2_best_mpnn_model.pt'
 STAGE2_NUM_SAMPLES = 500
 STAGE2_PRUNING_PERCENTILE = 2.3
