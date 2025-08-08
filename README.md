@@ -1,10 +1,23 @@
 # NEURAL: Attention-Guided Pruning for Unified Multimodal Resource-Constrained Clinical Evaluation
 
-![https://raw.githubusercontent.com/basiralab/NEURAL/blob/main/NEURAL.png](https://github.com/basiralab/NEURAL/blob/main/NEURAL.png)
+
+## Overview
 
 This repository contains the official PyTorch implementation for our paper, **NEURAL: Attention-Guided Pruning for Unified Multimodal Resource-Constrained Clinical Evaluation**.
 
 The core of this repository is a two-stage pipeline designed to address the challenges of storing and processing large-scale multimodal medical data. Our framework first uses a fine-tuned vision-language model to guide the structural pruning of chest X-rays, keeping only the most diagnostically relevant regions identified via cross-attention scores. This pruned visual data is then fused with a knowledge graph from the corresponding radiological report to create a unified, lightweight graph representation for efficient downstream diagnostic tasks.
+
+## Framework
+
+![https://raw.githubusercontent.com/basiralab/NEURAL/blob/main/NEURAL.png](https://github.com/basiralab/NEURAL/blob/main/NEURAL.png)
+
+
+<table>
+  <tr>
+    <td><img src="https://conferences.miccai.org/2025/en/default.asp" alt=""></td>
+    <td><img src="https://raw.githubusercontent.com/basiralab/NEURAL/blob/main/clip.png" alt=""></td>
+  </tr>
+</table>
 
 The code is organized into a modular structure for clarity and ease of use:
 
