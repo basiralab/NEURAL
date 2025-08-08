@@ -1,6 +1,5 @@
 # NEURAL: Attention-Guided Pruning for Unified Multimodal Resource-Constrained Clinical Evaluation
 
-
 ## Overview
 
 This repository contains the official PyTorch implementation for our paper, **NEURAL: Attention-Guided Pruning for Unified Multimodal Resource-Constrained Clinical Evaluation**.
@@ -13,13 +12,12 @@ Accepted at the 14th CLIP Workshop, MICCAI Conference 2025
 
 ![https://raw.githubusercontent.com/basiralab/NEURAL/blob/main/NEURAL.png](https://github.com/basiralab/NEURAL/blob/main/NEURAL.png)
 
-
 ## File Structure
 
 The code is organized into a modular structure for clarity and ease of use:
 
 ```
-baselines                   # Baseline Models
+baselines/                  # Baseline Models
 src/                        # Source Code Folder
 ├── main.py                 # Main entry point to run the pipeline
 ├── stage1_train.py         # Training script for Stage 1 (VLM fine-tuning)
@@ -30,35 +28,11 @@ src/                        # Source Code Folder
 └── utils.py                # Helper functions for text processing and graph creation
 ```
 
-# Dependencies
+## Dependencies
 
-The project was developed using Python 3.9 and PyTorch 2.0. We recommend setting up a dedicated virtual environment. The primary dependencies are listed below:
+All required Python packages and their specific versions are listed in the `requirements.txt` file. The project was developed using Python 3.9, PyTorch 2.0, and CUDA 12.8.
 
-```
-# PyTorch & TorchGeometric (for CUDA 12.8)
-torch==2.0.0+cu128
-torchvision==0.15.1+cu128
-torch-scatter==2.1.1+pt20cu128
-torch-sparse==0.6.17+pt20cu128
-torch-geometric==2.3.0
-
-# Hugging Face & NLP
-transformers==4.30.2
-spacy==3.5.0
-en_core_sci_sm
-
-# Other Core Libraries
-numpy==1.24.1
-pandas==1.5.3
-scikit-learn==1.2.2
-networkx==3.1
-Pillow==9.5.0
-tqdm==4.65.0
-```
-
-**Note:** We used the **CUDA 12.8** toolkit with an NVIDIA A30 GPU. You should use the CUDA toolkit version that corresponds to your NVIDIA GPU driver. You can check compatibility [here](https://docs.nvidia.com/deploy/cuda-compatibility/index.html#binary-compatibility__table-toolkit-driver).
-
-# Setup
+## Setup
 
 These instructions are written for a Linux (Ubuntu 24.04 LTS) environment.
 
@@ -67,67 +41,59 @@ These instructions are written for a Linux (Ubuntu 24.04 LTS) environment.
     conda create -n neural python=3.9
     conda activate neural
     ```
-2.  **Install PyTorch and its ecosystem**
-    The following commands install PyTorch, torchvision, and the required PyTorch Geometric libraries for CUDA 12.8.
+2.  **Install Dependencies**
+    Install all the required packages using the `requirements.txt` file. This file includes PyTorch, PyTorch Geometric, and all other necessary libraries.
     ```bash
-    pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
-    pip install torch-scatter torch-sparse torch-geometric -f https://data.pyg.org/whl/torch-2.0.0+cu128.html
+    pip install -r requirements.txt
     ```
-3.  **Install Remaining Python Packages**
-    ```bash
-    pip install transformers==4.30.2
-    pip install spacy==3.5.0
-    pip install numpy==1.24.1
-    pip install pandas==1.5.3
-    pip install scikit-learn==1.2.2
-    pip install networkx==3.1
-    pip install Pillow==9.5.0
-    pip install tqdm==4.65.0
-    ```
-4.  **Download SpaCy Model**
+3.  **Download SpaCy Model**
     Our pipeline uses the `en_core_sci_sm` model for clinical entity extraction. Download it using the following command:
     ```bash
     python -m spacy download en_core_sci_sm
     ```
 
-# Running the NEURAL Pipeline
+## Running the NEURAL Pipeline
 
-## Preparing Data and Models
+### Preparing Data and Models
 
 Before running the code, you must download the required datasets and pre-trained models.
 
-## Required Datasets and Models
+#### Required Datasets and Models
 
-1. Datasets
+1.  **Datasets**
 
-- **MIMIC-CXR**  
-  - Description: A large publicly available chest X-ray (CXR) dataset in DICOM format, with free-text radiology reports.  
-  - Access: Requires PhysioNet credentialed access and Data Use Agreement.  
-  - Link: [MIMIC-CXR Database (v2.0.0) on PhysioNet](https://physionet.org/content/mimic-cxr/)
+      * **MIMIC-CXR**
 
-- **CheXpert**  
-  - Description: A dataset of 224,316 chest radiographs (both frontal and lateral views) from 65,240 patients, automatically labeled for 14 observations (including uncertain labels).  
-  - Access: Publicly available via Stanford ML Group; user must agree to terms.  
-  - Link: [CheXpert Dataset (Stanford ML Group)](http://stanfordmlgroup.github.io/competitions/chexpert/)
+          * **Description**: A large publicly available chest X-ray (CXR) dataset in DICOM format, with free-text radiology reports.
+          * **Access**: Requires PhysioNet credentialed access and Data Use Agreement.
+          * **Link**: [MIMIC-CXR Database (v2.0.0) on PhysioNet](https://physionet.org/content/mimic-cxr/)
 
-2. Pre-trained Model
+      * **CheXpert**
 
-- **Clinical-T5-Base**  
-  - Description: A T5-Base language model further pretrained on clinical notes from MIMIC-III and MIMIC-IV; released under PhysioNet credentialed access due to sensitive content.  
-  - Published: January 25, 2023, version 1.0.0.  
-  - Link: [Clinical-T5 (v1.0.0) on PhysioNet](https://www.physionet.org/content/clinical-t5/1.0.0/)
-  
-3.  **Configuration:** Open the `config.py` file and update the following path variables to point to your local data and model directories:
+          * **Description**: A dataset of 224,316 chest radiographs from 65,240 patients, automatically labeled for 14 observations.
+          * **Access**: Publicly available via Stanford ML Group; user must agree to terms.
+          * **Link**: [CheXpert Dataset (Stanford ML Group)](http://stanfordmlgroup.github.io/competitions/chexpert/)
+
+2.  **Pre-trained Model**
+
+      * **Clinical-T5-Base**
+          * **Description**: A T5-Base language model further pretrained on clinical notes from MIMIC-III and MIMIC-IV.
+          * **Published**: January 25, 2023, version 1.0.0.
+          * **Link**: [Clinical-T5 (v1.0.0) on PhysioNet](https://www.physionet.org/content/clinical-t5/1.0.0/)
+
+3.  **Configuration**
+    Open the `config.py` file and update the following path variables to point to your local data and model directories:
+
       * `LLM_MODEL_NAME`: Path to the downloaded Clinical-T5 model directory.
       * `CSV_PATH`: Path to the CSV file containing labels and study IDs (e.g., `pneumonia_subset_10000.csv`).
       * `IMAGE_BASE_DIR`: Path to the root directory containing the chest X-ray images.
       * `REPORT_BASE_DIR`: Path to the root directory containing the corresponding radiology reports.
 
-## Executing the Two-Stage Pipeline
+### Executing the Two-Stage Pipeline
 
 The pipeline is executed via `main.py` using a `--stage` argument. You must run Stage 1 before Stage 2.
 
-**Stage 1: Fine-Tuning the Vision-Language Model**
+#### Stage 1: Fine-Tuning the Vision-Language Model
 
 This stage fine-tunes the `VisionLanguageModel` for joint report generation and classification. This process generates the cross-attention scores needed for pruning and saves the best-performing model checkpoint.
 
@@ -137,7 +103,7 @@ python main.py --stage 1
 
 This command will train the model based on the hyperparameters in `config.py` (e.g., `STAGE1_EPOCHS`, `STAGE1_LR_LM`) and save the best model to `stage1_best_model.pt`.
 
-**Stage 2: NEURAL Pruning and GNN Training**
+#### Stage 2: NEURAL Pruning and GNN Training
 
 This stage uses the checkpoint from Stage 1 to perform attention-guided pruning. It creates the unified multimodal graphs and trains the `MPNN` for the final pneumonia classification task.
 
@@ -150,7 +116,7 @@ This command loads `stage1_best_model.pt`, processes the data to create pruned g
 ## Further Information
 
   * To learn more about the NEURAL framework, check out our paper:
-    [**[https://github.com/basiralab/NEURAL](https://github.com/basiralab/NEURAL)**] 
+    [**https://github.com/basiralab/NEURAL**](https://github.com/basiralab/NEURAL)
 
   * You can find a video presentation of our work here: [Link to YouTube video]
 
