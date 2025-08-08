@@ -28,6 +28,36 @@ src/                        # Source Code Folder
 └── utils.py                # Helper functions for text processing and graph creation
 ```
 
+## Key Features of the NEURAL Framework
+
+NEURAL is a novel framework designed to reduce the storage and transmission burdens of large multimodal medical datasets without sacrificing diagnostic accuracy. Its key features include:
+
+* **Semantics-Guided Image Pruning**: Instead of conventional compression that is agnostic to content, NEURAL uses a vision-language model to intelligently prune chest X-rays. It leverages the cross-attention scores between an image and its corresponding radiological report to identify and preserve only the most diagnostically critical regions, achieving a data size reduction of **93-97%**.
+
+* **Unified Graph Representation**: The framework transforms multimodal data—images and text—into a single, unified graph structure. The pruned image regions form a visual graph, which is then fused with a knowledge graph derived from the clinical report. This creates a lightweight, extensible data asset that simplifies downstream modeling.
+
+* **Task-Agnostic and Persistent Compression**: The pruning is performed once, guided by the comprehensive information in a radiological report, rather than a specific downstream task. This creates a persistent, compressed data asset that can be stored and reused for various clinical applications, such as disease classification or report generation. 
+
+* **High Diagnostic Performance on Compressed Data**: Despite the extreme compression, NEURAL maintains high performance on diagnostic tasks. For pneumonia detection, it achieved an AUC of **0.88-0.95**, outperforming baseline models that use uncompressed data.
+
+* **Preservation of Full Resolution**: Unlike methods that downsample images and risk losing important details, NEURAL's patch-based approach operates on full-resolution images, ensuring that fine-grained visual features are considered during the pruning process.
+
+---
+
+## Models Used in This Paper
+
+The NEURAL framework integrates several models for its two-stage pipeline and is benchmarked against other state-of-the-art models.
+
+### Core Framework Models
+
+* **Swin Transformer (`Swin-base`)**: This serves as the vision encoder. It processes the chest X-ray by dividing it into patches and generating feature representations for each patch. The pre-trained model is automatically downloaded from Hugging Face.
+
+* **Clinical-T5 (`Clinical-T5-Base`)**: A T5-based language model pre-trained on clinical text, used here as the decoder. It is fine-tuned to generate radiological reports from the visual embeddings provided by the Swin encoder. The cross-attention scores from this model are repurposed to guide the image pruning.
+
+* **Message Passing Neural Network (MPNN)**: A graph neural network used for the final downstream diagnostic task. It operates on the unified graph (fused visual and text graphs) to perform classification.
+
+* **BiomedVLP-CXR-BERT**: This model is used to extract medical entities and their relationships from the radiological reports to construct the textual knowledge graph ($G_2$).
+
 ## Dependencies
 
 All required Python packages and their specific versions are listed in the `requirements.txt` file. The project was developed using Python 3.9, PyTorch 2.0, and CUDA 12.8.
