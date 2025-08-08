@@ -92,19 +92,19 @@ Before running the code, you must download the required datasets and pre-trained
 - **MIMIC-CXR**  
   - Description: A large publicly available chest X-ray (CXR) dataset in DICOM format, with free-text radiology reports.  
   - Access: Requires PhysioNet credentialed access and Data Use Agreement.  
-  - Link: [MIMIC-CXR Database (v2.0.0) on PhysioNet](https://physionet.org/content/mimic-cxr/) :contentReference[oaicite:0]{index=0}
+  - Link: [MIMIC-CXR Database (v2.0.0) on PhysioNet](https://physionet.org/content/mimic-cxr/)
 
 - **CheXpert**  
   - Description: A dataset of 224,316 chest radiographs (both frontal and lateral views) from 65,240 patients, automatically labeled for 14 observations (including uncertain labels).  
   - Access: Publicly available via Stanford ML Group; user must agree to terms.  
-  - Link: [CheXpert Dataset (Stanford ML Group)](http://stanfordmlgroup.github.io/competitions/chexpert/) :contentReference[oaicite:1]{index=1}
+  - Link: [CheXpert Dataset (Stanford ML Group)](http://stanfordmlgroup.github.io/competitions/chexpert/)
 
 2. Pre-trained Model
 
 - **Clinical-T5-Base**  
   - Description: A T5-Base language model further pretrained on clinical notes from MIMIC-III and MIMIC-IV; released under PhysioNet credentialed access due to sensitive content.  
   - Published: January 25, 2023, version 1.0.0.  
-  - Link: [Clinical-T5 (v1.0.0) on PhysioNet](https://www.physionet.org/content/clinical-t5/1.0.0/) :contentReference[oaicite:2]{index=2}
+  - Link: [Clinical-T5 (v1.0.0) on PhysioNet](https://www.physionet.org/content/clinical-t5/1.0.0/)
   
 3.  **Configuration:** Open the `config.py` file and update the following path variables to point to your local data and model directories:
       * `LLM_MODEL_NAME`: Path to the downloaded Clinical-T5 model directory.
