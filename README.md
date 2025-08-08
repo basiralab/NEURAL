@@ -1,6 +1,6 @@
 # NEURAL: Attention-Guided Pruning for Unified Multimodal Resource-Constrained Clinical Evaluation
 
-![NEURAL](https://raw.githubusercontent.com/basiralab/NEURAL/blob/main/NEURAL.png)
+![https://raw.githubusercontent.com/basiralab/NEURAL/blob/main/NEURAL.png](https://github.com/basiralab/NEURAL/blob/main/NEURAL.png)
 
 This repository contains the official PyTorch implementation for our paper, **NEURAL: Attention-Guided Pruning for Unified Multimodal Resource-Constrained Clinical Evaluation**.
 
