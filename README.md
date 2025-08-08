@@ -14,7 +14,7 @@ The core of this repository is a two-stage pipeline designed to address the chal
 
 <table>
   <tr>
-    <td><img src="https://conferences.miccai.org/2025/en/default.asp" alt=""></td>
+    <td><img src="https://conferences.miccai.org/2025/files/images/layout/en/miccai2025-logo.png" alt=""></td>
     <td><img src="https://raw.githubusercontent.com/basiralab/NEURAL/blob/main/clip.png" alt=""></td>
   </tr>
 </table>
