@@ -12,12 +12,14 @@ The core of this repository is a two-stage pipeline designed to address the chal
 ![https://raw.githubusercontent.com/basiralab/NEURAL/blob/main/NEURAL.png](https://github.com/basiralab/NEURAL/blob/main/NEURAL.png)
 
 
-<table>
+<!-- <table>
   <tr>
     <td><img src="https://conferences.miccai.org/2025/files/images/layout/en/miccai2025-logo.png" alt=""></td>
     <td><img src="https://github.com/basiralab/NEURAL/blob/main/clip.png" alt=""></td>
   </tr>
-</table>
+</table> -->
+
+## File Structure
 
 The code is organized into a modular structure for clarity and ease of use:
 
