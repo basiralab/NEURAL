@@ -1,0 +1,33 @@
+# This file lists the Python packages required to run the NEURAL project.
+# It is recommended to install these in a dedicated virtual environment.
+
+# --- Core ML & DL Libraries ---
+# Note: These versions are for PyTorch with CUDA 12.8.
+# For other CUDA versions or CPU-only, please visit https://pytorch.org/
+torch==2.0.0
+torchvision==0.15.1
+
+# --- PyTorch Geometric Libraries ---
+# These should be installed according to your PyTorch and CUDA versions.
+# See https://pytorch-geometric.readthedocs.io/en/latest/install/installation.html
+torch-scatter==2.1.1
+torch-sparse==0.6.17
+torch-geometric==2.3.0
+
+# --- Hugging Face & NLP ---
+transformers==4.30.2
+spacy==3.5.0
+# Note: The spaCy model 'en_core_sci_sm' is also required.
+# Install it after installing spacy with:
+# python -m spacy download en_core_sci_sm
+
+# --- Image & DICOM Handling ---
+Pillow==9.5.0
+pydicom==2.4.4
+
+# --- Other Core Libraries ---
+numpy==1.24.1
+pandas==1.5.3
+scikit-learn==1.2.2
+networkx==3.1
+tqdm==4.65.0
