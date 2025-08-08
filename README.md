@@ -19,7 +19,8 @@ Accepted at the 14th CLIP Workshop, MICCAI 2025
 The code is organized into a modular structure for clarity and ease of use:
 
 ```
-src/
+baselines                   # Baseline Models
+src/                        # Source Code Folder
 ├── main.py                 # Main entry point to run the pipeline
 ├── stage1_train.py         # Training script for Stage 1 (VLM fine-tuning)
 ├── stage2_train.py         # Training script for Stage 2 (GNN training)
