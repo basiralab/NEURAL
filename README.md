@@ -34,7 +34,7 @@ NEURAL is a novel framework designed to reduce the storage and transmission burd
 
 * **Semantics-Guided Image Pruning**: Instead of conventional compression that is agnostic to content, NEURAL uses a vision-language model to intelligently prune chest X-rays. It leverages the cross-attention scores between an image and its corresponding radiological report to identify and preserve only the most diagnostically critical regions, achieving a data size reduction of **93-97%**.
 
-* **Unified Graph Representation**: The framework transforms multimodal data—images and text—into a single, unified graph structure. The pruned image regions form a visual graph, which is then fused with a knowledge graph derived from the clinical report. This creates a lightweight, extensible data asset that simplifies downstream modeling.
+* **Unified Graph Representation**: The framework transforms multimodal data (images and text) into a single, unified graph structure. The pruned image regions form a visual graph, which is then fused with a knowledge graph derived from the clinical report. This creates a lightweight, extensible data asset that simplifies downstream modeling.
 
 * **Task-Agnostic and Persistent Compression**: The pruning is performed once, guided by the comprehensive information in a radiological report, rather than a specific downstream task. This creates a persistent, compressed data asset that can be stored and reused for various clinical applications, such as disease classification or report generation. 
 
@@ -44,7 +44,7 @@ NEURAL is a novel framework designed to reduce the storage and transmission burd
 
 ---
 
-## Models Used in This Paper
+## Models
 
 The NEURAL framework integrates several models for its two-stage pipeline and is benchmarked against other state-of-the-art models.
 
