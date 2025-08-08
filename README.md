@@ -7,7 +7,7 @@ This repository contains the official PyTorch implementation for our paper, **NE
 
 The core of this repository is a two-stage pipeline designed to address the challenges of storing and processing large-scale multimodal medical data. Our framework first uses a fine-tuned vision-language model to guide the structural pruning of chest X-rays, keeping only the most diagnostically relevant regions identified via cross-attention scores. This pruned visual data is then fused with a knowledge graph from the corresponding radiological report to create a unified, lightweight graph representation for efficient downstream diagnostic tasks.
 
-Accepted at the 14th CLIP Workshop, MICCAI 2025
+Accepted at the 14th CLIP Workshop, MICCAI Conference 2025
 
 ## Framework
 
