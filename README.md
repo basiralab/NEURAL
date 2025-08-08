@@ -85,8 +85,23 @@ These instructions are written for a Linux (Ubuntu 24.04 LTS) environment.
 
 Before running the code, you must download the required datasets and pre-trained models.
 
-1.  **Datasets:** The framework is designed for the **MIMIC-CXR**  and **CheXpert**  datasets. Download them and organize the files as you see fit.
-2.  **Pre-trained Models:** You will need the **Clinical-T5-Base** language model. Download the model files from a trusted source like Hugging Face.
+1. Datasets
+- **MIMIC-CXR**  
+  - Description: A large publicly available dataset of chest radiographs with associated radiology reports.  
+  - Access: Requires credentialed PhysioNet account and data use agreement.  
+  - Link: [MIMIC-CXR Database on PhysioNet](https://physionet.org/content/mimic-cxr/2.0.0/)
+
+- **CheXpert**  
+  - Description: A large dataset of chest X-rays labeled for the presence of 14 observations.  
+  - Access: Requires filling out the dataset request form from Stanford.  
+  - Link: [CheXpert Dataset (Stanford ML Group)](https://stanfordmlgroup.github.io/competitions/chexpert/)
+
+2. Pre-trained Model
+- **Clinical-T5-Base**  
+  - Description: A T5 model pre-trained on clinical text.  
+  - Source: Hugging Face model hub.  
+  - Link: [Clinical-T5-Base on Hugging Face](https://huggingface.co/medicalai/Clinical-T5-Base)
+  
 3.  **Configuration:** Open the `config.py` file and update the following path variables to point to your local data and model directories:
       * `LLM_MODEL_NAME`: Path to the downloaded Clinical-T5 model directory.
       * `CSV_PATH`: Path to the CSV file containing labels and study IDs (e.g., `pneumonia_subset_10000.csv`).
