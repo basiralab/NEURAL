@@ -146,9 +146,9 @@ This command loads `stage1_best_model.pt`, processes the data to create pruned g
 ## Further Information
 
   * To learn more about the NEURAL framework, check out our paper:
-    [**https://github.com/basiralab/NEURAL**](https://github.com/basiralab/NEURAL)
+    [**https://arxiv.org/abs/2508.09715v1**](https://arxiv.org/abs/2508.09715v1)
 
-  * You can find a video presentation of our work here: [Link to YouTube video]
+  * You can find a video presentation of our work here: [**https://github.com/basiralab/NEURAL**](https://www.youtube.com/watch?v=6GZ_Gpk1KZM)
 
 ## Please cite our paper if you use this code
 
