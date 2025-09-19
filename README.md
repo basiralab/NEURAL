@@ -153,11 +153,13 @@ This command loads `stage1_best_model.pt`, processes the data to create pruned g
 ## Please cite our paper if you use this code
 
 ```latex
-@inproceedings{joshi2025neural,
-  title={NEURAL: Attention-Guided Pruning for Unified Multimodal Resource-Constrained Clinical Evaluation},
-  author={Joshi, Devvrat and Rekik, Islem},
-  booktitle={},
-  year={2025},
-  organization={Springer}
+@misc{joshi2025neuralattentionguidedpruningunified,
+      title={NEURAL: Attention-Guided Pruning for Unified Multimodal Resource-Constrained Clinical Evaluation}, 
+      author={Devvrat Joshi and Islem Rekik},
+      year={2025},
+      eprint={2508.09715},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2508.09715}, 
 }
 ```
